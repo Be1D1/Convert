@@ -1,0 +1,32 @@
+.info-box {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 15px #c5c4c4;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.info-box h4 {
+    color: #000;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.info-box ol, 
+.info-box ul {
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.info-box li {
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.tips {
+    background-color: #bedffa;
+    padding: 20px;
+    border-radius: 20px;
+    border-left: 4px solid #71afff;
+    border-right: 4px solid #71afff;
+}

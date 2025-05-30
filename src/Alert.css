@@ -1,0 +1,16 @@
+.alert {
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.alert.success {
+    background-color: #51b189;
+    color: #000;
+}
+
+.alert.error {
+    background-color: #f87a7a;
+    color: #000;
+}

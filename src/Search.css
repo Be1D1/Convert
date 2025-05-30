@@ -1,0 +1,27 @@
+.search-container {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+.search-container svg {
+  position: absolute;
+  right: 15px;
+  top: 25%;
+  fill: #3498db;
+  width: 23px;
+  height: 23px;
+}
+.search {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  border-radius: 25px 25px 25px 0;
+  font-size: 13px;
+  outline: none;
+  transition: all 0.3s ease;
+  padding-right: 40px;
+}
+
+.search:focus {
+  border-color: #3498db;
+}

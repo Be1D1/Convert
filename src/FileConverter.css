@@ -1,0 +1,145 @@
+.converter-card {
+    background: white;
+    border-radius: 35px;
+    box-shadow: 0 10px 15px #c5c4c4;
+}
+
+.converter-card.active {
+    box-shadow: 0 10px 15px #f3cbcb;
+    transition: box-shadow 1s;
+}
+
+.card-header {
+    padding: 20px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #eeeded;
+    border-radius: 35px 35px 0 0;
+    border: #ffffff solid 4px;
+}
+
+.card-header:hover {
+    background-color: #d6d4d4;
+}
+
+.format-icon {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.card-header h3 {
+    flex: 1;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.file-upload-area {
+    margin-bottom: 1.5rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-box {
+    border: 2px dashed #6d4f4f;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    position: relative;
+}
+
+.upload-box:hover, 
+.upload-box.dragging {
+    border-color: #000000;
+    background-color: #e9f5fa;
+}
+
+.upload-box.dragging::after {
+    content: 'Отпустите файл для загрузки';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(72, 149, 239, 0.1);
+    display: flex;
+    padding: 13px;
+    justify-content: center;
+    font-weight: bold;
+    color: #000;
+}
+
+.upload-icon {
+    font-size: 20px;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.file-name {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.file-size {
+    color: #666;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.convert-btn {
+    width: 90%;
+    padding: 1rem;
+    color: #000;
+    border: #6d4f4f solid 1px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeded;
+    margin: 0 auto;
+}
+
+.convert-btn:hover {
+    background-color: #a09a9a;
+    width: 100%;
+}
+
+.convert-btn:disabled {
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #000;
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
