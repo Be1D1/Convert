@@ -4,9 +4,10 @@ header{
   height: 100px;
   width: 98%;
   margin: 10px auto;
-  border: #e7e7e7 solid 1px;
+  border: #f7caca solid 2px;
   display: flex;
   align-items: center;
+  background-color: #fff;
 }
 .header-content{
   display: flex;

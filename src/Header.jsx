@@ -8,15 +8,40 @@ function Header({ searchTerm, onSearchChange, onConverterSelect }) {
   const formatOptions = {
     pdf: [
       { id: 'pdf-docx', label: '→ DOCX' },
-      { id: 'pdf-jpg', label: '→ JPG' }
+      { id: 'pdf-jpg', label: '→ JPG' },
+      { id: 'pdf-png', label: '→ PNG' },
+      { id: 'pdf-csv', label: '→ CSV' },
+      { id: 'pdf-xlsx', label: '→ XLSX' },
+      { id: 'pdf-pptx', label: '→ PPTX' },
+      { id: 'pdf-html', label: '→ HTML' },
+      { id: 'pdf-svg', label: '→ SVG' },
+      { id: 'pdf-tiff', label: '→ TIFF' },
+      { id: 'pdf-txt', label: '→ TXT' },
+      { id: 'pdf-webp', label: '→ WEBP' }
     ],
     docx: [
       { id: 'docx-pdf', label: '→ PDF' },
-      { id: 'docx-jpg', label: '→ JPG' }
+      { id: 'docx-jpg', label: '→ JPG' },
+      { id: 'docx-html', label: '→ HTML' },
+      { id: 'docx-pages', label: '→ PAGES' },
+      { id: 'docx-txt', label: '→ TXT' },
+      { id: 'docx-png', label: '→ PNG' },
+      { id: 'docx-webp', label: '→ WEBP' },
+      { id: 'docx-xml', label: '→ XML' },
+      { id: 'docx-xps', label: '→ XPS' },
+      { id: 'docx-tiff', label: '→ TIFF' },
+      { id: 'docx-odt', label: '→ ODT' }
     ],
-    jpg: [
-      { id: 'jpg-pdf', label: '→ PDF' },
-      { id: 'jpg-docx', label: '→ DOCX' }
+    xlsx: [
+      { id: 'xlsx-pdf', label: '→ PDF' },
+      { id: 'xlsx-webp', label: '→ WEBP' },
+      { id: 'xlsx-numbers', label: '→ NUMBERS' },
+      { id: 'xlsx-csv', label: '→ CSV' },
+      { id: 'xlsx-jpg', label: '→ JPG' },
+      { id: 'xlsx-png', label: '→ PNG' }
+    ],
+    html: [
+      { id: 'html-pdf', label: '→ PDF' }
     ]
   };
 
