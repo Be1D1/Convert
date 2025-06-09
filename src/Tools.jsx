@@ -180,17 +180,18 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                 {
                     id: 'pdf-merge',
                     title: 'Объединить PDF',
+                    buttonText: 'Объединить PDF файлы',
                     accept: '.pdf',
                     multiple: true,
                     minFiles: 2,
-                    icon: '📂',  // Папка с файлами
+                    icon: '📂',
                     description: 'Объедините несколько PDF файлов в один',
                     handler: handleMergePdf
                 },
                 {
                     id: 'pdf-delete-pages',
                     title: 'Удалить страницы из PDF',
-                    accept: '.pdf',
+                    buttonText: 'Удалить страницы',
                     icon: '✂️',
                     description: 'Удалите страницы из PDF файла',
                     handler: handleDeletePages,
@@ -198,49 +199,49 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                 }
             ]
         },
-        {
+        {   
             name: 'PDF Конвертеры',
             formats: [
                 { 
                     id: 'pdf-docx', 
                     title: 'PDF в DOCX', 
                     accept: '.pdf',
-                    icon: '📑',  // Документ с загнутым уголком
+                    icon: '📑',
                     handler: (file) => handleConvert('pdf/to/docx', 'docx', file)
                 },
                 { 
                     id: 'pdf-xlsx', 
                     title: 'PDF в XLSX', 
                     accept: '.pdf',
-                    icon: '📈',  // График роста
+                    icon: '📈',
                     handler: (file) => handleConvert('pdf/to/xlsx', 'xlsx', file)
                 },
                 { 
                     id: 'pdf-pptx', 
                     title: 'PDF в PPTX', 
                     accept: '.pdf',
-                    icon: '📽️',  // Проектор
+                    icon: '📽️',
                     handler: (file) => handleConvert('pdf/to/pptx', 'pptx', file)
                 },
                 { 
                     id: 'pdf-html', 
                     title: 'PDF в HTML', 
                     accept: '.pdf',
-                    icon: '🖥️',  // Настольный компьютер
+                    icon: '🖥️',
                     handler: (file) => handleConvert('pdf/to/html', 'html', file)
                 },
                 { 
                     id: 'pdf-tiff', 
                     title: 'PDF в TIFF', 
                     accept: '.pdf',
-                    icon: '🖨️',  // Принтер
+                    icon: '🖨️',
                     handler: (file) => handleConvert('pdf/to/tiff', 'tiff', file)
                 },
                 { 
                     id: 'pdf-txt', 
                     title: 'PDF в TXT', 
                     accept: '.pdf',
-                    icon: '📝',  // Записка
+                    icon: '📝',
                     handler: (file) => handleConvert('pdf/to/txt', 'txt', file)
                 },
             ]
@@ -252,42 +253,42 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'docx-pdf', 
                     title: 'DOCX в PDF', 
                     accept: '.docx',
-                    icon: '📰',  // Газета
+                    icon: '📰',
                     handler: (file) => handleConvert('docx/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'docx-html', 
                     title: 'DOCX в HTML', 
                     accept: '.docx',
-                    icon: '💻',  // Ноутбук
+                    icon: '💻',
                     handler: (file) => handleConvert('docx/to/html', 'html', file)
                 },
                 { 
                     id: 'docx-txt', 
                     title: 'DOCX в TXT', 
                     accept: '.docx',
-                    icon: '🗒️',  // Блокнот
+                    icon: '🗒️',
                     handler: (file) => handleConvert('docx/to/txt', 'txt', file)
                 },
                 { 
                     id: 'docx-xml', 
                     title: 'DOCX в XML', 
                     accept: '.docx',
-                    icon: '📟',  // Пейджер
+                    icon: '📟',
                     handler: (file) => handleConvert('docx/to/xml', 'xml', file)
                 },
                 { 
                     id: 'docx-tiff', 
                     title: 'DOCX в TIFF', 
                     accept: '.docx',
-                    icon: '🖩',  // Калькулятор
+                    icon: '🖩',
                     handler: (file) => handleConvert('docx/to/tiff', 'tiff', file)
                 },
                 { 
                     id: 'docx-odt', 
                     title: 'DOCX в ODT', 
                     accept: '.docx',
-                    icon: '📋',  // Клипборд
+                    icon: '📋',
                     handler: (file) => handleConvert('docx/to/odt', 'odt', file)
                 }
             ]
@@ -299,22 +300,50 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'xlsx-pdf', 
                     title: 'XLSX в PDF', 
                     accept: '.xlsx,.xls',
-                    icon: '🧾',  // Чек
+                    icon: '🧾',
                     handler: (file) => handleConvert('xlsx/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'xlsx-numbers', 
                     title: 'XLSX в NUMBERS', 
                     accept: '.xlsx,.xls',
-                    icon: '🔢',  // Цифры
+                    icon: '🔢',
                     handler: (file) => handleConvert('xlsx/to/numbers', 'numbers', file)
                 },
                 { 
                     id: 'xlsx-csv', 
                     title: 'XLSX в CSV', 
                     accept: '.xlsx,.xls',
-                    icon: '📜',  // Свиток
+                    icon: '📜',
                     handler: (file) => handleConvert('xlsx/to/csv', 'csv', file)
+                },
+                { 
+                    id: 'xlsx-tiff', 
+                    title: 'XLSX в TIFF', 
+                    accept: '.xlsx,.xls',
+                    icon: '📖',
+                    handler: (file) => handleConvert('xlsx/to/tiff', 'tiff', file)
+                },
+                { 
+                    id: 'xls-pdf', 
+                    title: 'XLS в PDF', 
+                    accept: '.xls',
+                    icon: '📊',
+                    handler: (file) => handleConvert('xls/to/pdf', 'pdf', file)
+                },
+                { 
+                    id: 'xls-tiff', 
+                    title: 'XLS в TIFF', 
+                    accept: '.xls',
+                    icon: '🖨️',
+                    handler: (file) => handleConvert('xls/to/tiff', 'tiff', file)
+                },
+                { 
+                    id: 'xls-xlsx', 
+                    title: 'XLS в XLSX', 
+                    accept: '.xls',
+                    icon: '📈',
+                    handler: (file) => handleConvert('xls/to/xlsx', 'xlsx', file)
                 }
             ]
         },
@@ -325,63 +354,63 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'html-pdf', 
                     title: 'HTML в PDF', 
                     accept: '.html,.htm',
-                    icon: '📰',  // Газета
+                    icon: '📰',
                     handler: (file) => handleConvert('html/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'html-odt', 
                     title: 'HTML в ODT', 
                     accept: '.html,.htm',
-                    icon: '📘',  // Синяя книга
+                    icon: '📘',
                     handler: (file) => handleConvert('html/to/odt', 'odt', file)
                 },
                 { 
                     id: 'html-jpg', 
                     title: 'HTML в JPG', 
                     accept: '.html,.htm',
-                    icon: '🖼️',  // Картина
+                    icon: '🖼️',
                     handler: (file) => handleConvert('html/to/jpg', 'jpg', file)
                 },
                 { 
                     id: 'html-docx', 
                     title: 'HTML в DOCX', 
                     accept: '.html,.htm',
-                    icon: '📙',  // Оранжевая книга
+                    icon: '📙',
                     handler: (file) => handleConvert('html/to/docx', 'docx', file)
                 },
                 { 
                     id: 'html-png', 
                     title: 'HTML в PNG', 
                     accept: '.html,.htm',
-                    icon: '🖍️',  // Мелки
+                    icon: '🖍️',
                     handler: (file) => handleConvert('html/to/png', 'png', file)
                 },
                 { 
                     id: 'html-txt', 
                     title: 'HTML в TXT', 
                     accept: '.html,.htm',
-                    icon: '📔',  // Тетрадь с обложкой
+                    icon: '📔',
                     handler: (file) => handleConvert('html/to/txt', 'txt', file)
                 },
                 { 
                     id: 'html-xlsx', 
                     title: 'HTML в XLSX', 
                     accept: '.html,.htm',
-                    icon: '📗',  // Зеленая книга
+                    icon: '📗',
                     handler: (file) => handleConvert('html/to/xlsx', 'xlsx', file)
                 },
                 { 
                     id: 'html-xls', 
                     title: 'HTML в XLS', 
                     accept: '.html,.htm',
-                    icon: '📕',  // Красная книга
+                    icon: '📕',
                     handler: (file) => handleConvert('html/to/xls', 'xls', file)
                 },
                 { 
                     id: 'html-md', 
                     title: 'HTML в MD', 
                     accept: '.html,.htm',
-                    icon: '📚',  // Книги
+                    icon: '📚',
                     handler: (file) => handleConvert('html/to/md', 'md', file)
                 }
             ]
@@ -393,35 +422,35 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'gif-jpg', 
                     title: 'GIF в JPG', 
                     accept: '.gif',
-                    icon: '📷',  // Фотоаппарат
+                    icon: '📷',
                     handler: (file) => handleConvert('gif/to/jpg', 'jpg', file)
                 },
                 { 
                     id: 'gif-pdf', 
                     title: 'GIF в PDF', 
                     accept: '.gif',
-                    icon: '🎬',  // Киноклаппер
+                    icon: '🎬',
                     handler: (file) => handleConvert('gif/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'gif-png', 
                     title: 'GIF в PNG', 
                     accept: '.gif',
-                    icon: '🎨',  // Палитра
+                    icon: '🎨',
                     handler: (file) => handleConvert('gif/to/png', 'png', file)
                 },
                 { 
                     id: 'gif-svg', 
                     title: 'GIF в SVG', 
                     accept: '.gif',
-                    icon: '✒️',  // Перо
+                    icon: '✒️',
                     handler: (file) => handleConvert('gif/to/svg', 'svg', file)
                 },
                 { 
                     id: 'gif-tiff', 
                     title: 'GIF в TIFF', 
                     accept: '.gif',
-                    icon: '🖋️',  // Ручка
+                    icon: '🖋️',
                     handler: (file) => handleConvert('gif/to/tiff', 'tiff', file)
                 },
             ]
@@ -433,35 +462,35 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'jpg-png', 
                     title: 'JPG в PNG', 
                     accept: '.jpg,.jpeg',
-                    icon: '🏙️',  // Городской пейзаж
+                    icon: '🏙️',
                     handler: (file) => handleConvert('jpg/to/png', 'png', file)
                 },
                 { 
                     id: 'jpg-gif', 
                     title: 'JPG в GIF', 
                     accept: '.jpg,.jpeg',
-                    icon: '🎥',  // Киноаппарат
+                    icon: '🎥',
                     handler: (file) => handleConvert('jpg/to/gif', 'gif', file)
                 },
                 { 
                     id: 'jpg-pdf', 
                     title: 'JPG в PDF', 
                     accept: '.jpg,.jpeg',
-                    icon: '📸',  // Вспышка фотоаппарата
+                    icon: '📸',
                     handler: (file) => handleConvert('jpg/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'jpg-svg', 
                     title: 'JPG в SVG', 
                     accept: '.jpg,.jpeg',
-                    icon: '🖌️',  // Кисть
+                    icon: '🖌️',
                     handler: (file) => handleConvert('jpg/to/svg', 'svg', file)
                 },
                 { 
                     id: 'jpg-tiff', 
                     title: 'JPG в TIFF', 
                     accept: '.jpg,.jpeg',
-                    icon: '📐',  // Линейка
+                    icon: '📐',
                     handler: (file) => handleConvert('jpg/to/tiff', 'tiff', file)
                 },
             ]
@@ -473,35 +502,35 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'png-gif', 
                     title: 'PNG в GIF', 
                     accept: '.png',
-                    icon: '🎞️',  // Кинофильм
+                    icon: '🎞️',
                     handler: (file) => handleConvert('png/to/gif', 'gif', file)
                 },
                 { 
                     id: 'png-jpg', 
                     title: 'PNG в JPG', 
                     accept: '.png',
-                    icon: '🌅',  // Восход
+                    icon: '🌅',
                     handler: (file) => handleConvert('png/to/jpg', 'jpg', file)
                 },
                 { 
                     id: 'png-tiff', 
                     title: 'PNG в TIFF', 
                     accept: '.png',
-                    icon: '🏜️',  // Пустыня
+                    icon: '🏜️',
                     handler: (file) => handleConvert('png/to/tiff', 'tiff', file)
                 },
                 { 
                     id: 'png-pdf', 
                     title: 'PNG в PDF', 
                     accept: '.png',
-                    icon: '🌄',  // Горы на рассвете
+                    icon: '🌄',
                     handler: (file) => handleConvert('png/to/pdf', 'pdf', file)
                 },
                 { 
                     id: 'png-svg', 
                     title: 'PNG в SVG', 
                     accept: '.png',
-                    icon: '🖍️',  // Мелки
+                    icon: '🖍️',
                     handler: (file) => handleConvert('png/to/svg', 'svg', file)
                 },
             ]
@@ -513,14 +542,14 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     id: 'pptx-tiff', 
                     title: 'PPTX в TIFF', 
                     accept: '.pptx',
-                    icon: '',
+                    icon: '📧',
                     handler: (file) => handleConvert('pptx/to/tiff', 'tiff', file)
                 },
                 { 
                     id: 'pptx-pdf', 
                     title: 'PPTX в PDF', 
                     accept: '.pptx',
-                    icon: '',
+                    icon: '☑️',
                     handler: (file) => handleConvert('pptx/to/pdf', 'pdf', file)
                 }
                 ]

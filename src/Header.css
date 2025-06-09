@@ -1,7 +1,8 @@
 header{
   border-radius: 35px;
   box-shadow: 1px 10px 15px#c9c9c9;
-  height: 100px;
+  min-height: 100px;
+  height: auto;
   width: 98%;
   margin: 10px auto;
   border: #f7caca solid 2px;
@@ -22,6 +23,9 @@ header{
 .search-input{
   margin-left: auto;
   margin-right: 35px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 .format-menu {
   position: relative;
@@ -85,4 +89,10 @@ header{
     flex-wrap: wrap;
     justify-content: center;
   }
+}
+.icon-site{
+  margin: 0 auto;
+}
+.site-icon{
+  cursor: pointer;
 }

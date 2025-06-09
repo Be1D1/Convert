@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css';
 import Search from './Search';
+import logo from '/public/icon.png';
 
 function Header({ searchTerm, onSearchChange, onConverterSelect }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -125,10 +126,16 @@ function Header({ searchTerm, onSearchChange, onConverterSelect }) {
                       {option.label}
                     </button>
                   ))}
+                  
                 </div>
               )}
             </div>
           ))}
+        </div>
+        <div className='icon-site'>
+          <a href="/">
+            <img src={logo} className="site-icon" />
+          </a>
         </div>
         <div className="search-input">
           <Search searchTerm={searchTerm} onSearchChange={handleSearchChange} />
