@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import Search from './Search';
 
 function Header({ searchTerm, onSearchChange, onConverterSelect }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [selectedConverter, setSelectedConverter] = useState(null);
 
   const formatOptions = {
     pdf: [
@@ -54,8 +55,22 @@ function Header({ searchTerm, onSearchChange, onConverterSelect }) {
   };
 
   const handleConverterSelect = (converterId) => {
+    setSelectedConverter(converterId);
     onConverterSelect(converterId);
+    onSearchChange('');
     setActiveDropdown(null);
+  };
+
+
+  useEffect(() => {
+    if (searchTerm && selectedConverter) {
+      setSelectedConverter(null);
+      onConverterSelect(null);
+    }
+  }, [searchTerm, selectedConverter, onConverterSelect]);
+
+  const handleSearchChange = (e) => {
+    onSearchChange(e);
   };
 
   return (
@@ -92,7 +107,7 @@ function Header({ searchTerm, onSearchChange, onConverterSelect }) {
           ))}
         </div>
         <div className="search-input">
-          <Search searchTerm={searchTerm} onSearchChange={onSearchChange} />
+          <Search searchTerm={searchTerm} onSearchChange={handleSearchChange} />
         </div>
       </div>
     </header>

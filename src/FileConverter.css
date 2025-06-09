@@ -143,3 +143,39 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+.split-options {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.split-method {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.split-method label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.split-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #000(0, 0, 0);
+}
+
+.split-hint {
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-top: 5px;
+}
