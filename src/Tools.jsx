@@ -8,8 +8,9 @@ const Tools = ({ searchTerm, selectedConverter }) => {
     const [activeContainer, setActiveContainer] = useState(null);
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [pageRange, setPageRange] = useState('');
 
-    const handleConvert = async (endpoint, targetFormat, file) => {
+    const handleConvert = async (endpoint, targetFormat, file, pages = '') => {
         if (!file) {
             setMessage('Пожалуйста, выберите файл для конвертации.');
             return;
@@ -21,6 +22,9 @@ const Tools = ({ searchTerm, selectedConverter }) => {
         try {
             const formData = new FormData();
             formData.append('File', file);
+            if (pages) {
+                formData.append('PageRange', pages);
+            }
 
             const response = await fetch(
                 `https://v2.convertapi.com/convert/${endpoint}?Secret=secret_KZTZ8nEF9oViP4GP`,
@@ -55,9 +59,62 @@ const Tools = ({ searchTerm, selectedConverter }) => {
         }
     };
 
+    const handleDeletePages = async (file) => {
+        if (!file) {
+            setMessage('Пожалуйста, выберите PDF файл.');
+            return;
+        }
+
+        if (!pageRange) {
+            setMessage('Пожалуйста, укажите диапазон страниц для удаления.');
+            return;
+        }
+
+        setIsLoading(true);
+        setMessage(`Удаление страниц ${pageRange} из PDF...`);
+
+        try {
+            const formData = new FormData();
+            formData.append('File', file);
+            formData.append('PageRange', pageRange);
+
+            const response = await fetch(
+                `https://v2.convertapi.com/convert/pdf/to/delete-pages?Secret=secret_KZTZ8nEF9oViP4GP`,
+                {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/octet-stream' },
+                    body: formData
+                }
+            );
+
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+            
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pdf_without_pages_${pageRange}_${Date.now()}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        
+            setMessage(`Страницы ${pageRange} успешно удалены из PDF!`);
+        } catch (error) {
+            setMessage(`Ошибка: ${error.message}`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const toggleContainer = (formatId) => {
         setActiveContainer(activeContainer === formatId ? null : formatId);
         setMessage('');
+        setPageRange('');
     };
 
     const handleMergePdf = async (files) => {
@@ -130,6 +187,15 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     description: 'Объедините несколько PDF файлов в один',
                     handler: handleMergePdf
                 },
+                {
+                    id: 'pdf-delete-pages',
+                    title: 'Удалить страницы из PDF',
+                    accept: '.pdf',
+                    icon: '✂️',
+                    description: 'Удалите страницы из PDF файла',
+                    handler: handleDeletePages,
+                    showPageRangeInput: true
+                }
             ]
         },
         {
@@ -141,27 +207,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     accept: '.pdf',
                     icon: '📑',  // Документ с загнутым уголком
                     handler: (file) => handleConvert('pdf/to/docx', 'docx', file)
-                },
-                { 
-                    id: 'pdf-jpg', 
-                    title: 'PDF в JPG', 
-                    accept: '.pdf',
-                    icon: '🖼️',  // Картина в рамке
-                    handler: (file) => handleConvert('pdf/to/jpg', 'jpg', file)
-                },
-                { 
-                    id: 'pdf-png', 
-                    title: 'PDF в PNG', 
-                    accept: '.pdf',
-                    icon: '🏞️',  // Горный пейзаж
-                    handler: (file) => handleConvert('pdf/to/png', 'png', file)
-                },
-                { 
-                    id: 'pdf-csv', 
-                    title: 'PDF в CSV', 
-                    accept: '.pdf',
-                    icon: '📊',  // Гистограмма
-                    handler: (file) => handleConvert('pdf/to/csv', 'csv', file)
                 },
                 { 
                     id: 'pdf-xlsx', 
@@ -185,13 +230,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     handler: (file) => handleConvert('pdf/to/html', 'html', file)
                 },
                 { 
-                    id: 'pdf-svg', 
-                    title: 'PDF в SVG', 
-                    accept: '.pdf',
-                    icon: '✏️',  // Карандаш
-                    handler: (file) => handleConvert('pdf/to/svg', 'svg', file)
-                },
-                { 
                     id: 'pdf-tiff', 
                     title: 'PDF в TIFF', 
                     accept: '.pdf',
@@ -204,13 +242,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     accept: '.pdf',
                     icon: '📝',  // Записка
                     handler: (file) => handleConvert('pdf/to/txt', 'txt', file)
-                },
-                { 
-                    id: 'pdf-webp', 
-                    title: 'PDF в WEBP', 
-                    accept: '.pdf',
-                    icon: '🌐',  // Глобус
-                    handler: (file) => handleConvert('pdf/to/webp', 'webp', file)
                 },
             ]
         },
@@ -225,25 +256,11 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     handler: (file) => handleConvert('docx/to/pdf', 'pdf', file)
                 },
                 { 
-                    id: 'docx-jpg', 
-                    title: 'DOCX в JPG', 
-                    accept: '.docx',
-                    icon: '🎨',  // Палитра художника
-                    handler: (file) => handleConvert('docx/to/jpg', 'jpg', file)
-                },
-                { 
                     id: 'docx-html', 
                     title: 'DOCX в HTML', 
                     accept: '.docx',
                     icon: '💻',  // Ноутбук
                     handler: (file) => handleConvert('docx/to/html', 'html', file)
-                },
-                { 
-                    id: 'docx-pages', 
-                    title: 'DOCX в PAGES', 
-                    accept: '.docx',
-                    icon: '📓',  // Тетрадь
-                    handler: (file) => handleConvert('docx/to/pages', 'pages', file)
                 },
                 { 
                     id: 'docx-txt', 
@@ -253,32 +270,11 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     handler: (file) => handleConvert('docx/to/txt', 'txt', file)
                 },
                 { 
-                    id: 'docx-png', 
-                    title: 'DOCX в PNG', 
-                    accept: '.docx',
-                    icon: '🖍️',  // Мелки
-                    handler: (file) => handleConvert('docx/to/png', 'png', file)
-                },
-                { 
-                    id: 'docx-webp', 
-                    title: 'DOCX в WEBP', 
-                    accept: '.docx',
-                    icon: '🖱️',  // Компьютерная мышь
-                    handler: (file) => handleConvert('docx/to/webp', 'webp', file)
-                },
-                { 
                     id: 'docx-xml', 
                     title: 'DOCX в XML', 
                     accept: '.docx',
                     icon: '📟',  // Пейджер
                     handler: (file) => handleConvert('docx/to/xml', 'xml', file)
-                },
-                { 
-                    id: 'docx-xps', 
-                    title: 'DOCX в XPS', 
-                    accept: '.docx',
-                    icon: '📠',  // Факс
-                    handler: (file) => handleConvert('docx/to/xps', 'xps', file)
                 },
                 { 
                     id: 'docx-tiff', 
@@ -307,13 +303,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     handler: (file) => handleConvert('xlsx/to/pdf', 'pdf', file)
                 },
                 { 
-                    id: 'xlsx-webp', 
-                    title: 'XLSX в WEBP', 
-                    accept: '.xlsx,.xls',
-                    icon: '🖲️',  // Трекбол
-                    handler: (file) => handleConvert('xlsx/to/webp', 'webp', file)
-                },
-                { 
                     id: 'xlsx-numbers', 
                     title: 'XLSX в NUMBERS', 
                     accept: '.xlsx,.xls',
@@ -326,20 +315,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     accept: '.xlsx,.xls',
                     icon: '📜',  // Свиток
                     handler: (file) => handleConvert('xlsx/to/csv', 'csv', file)
-                },
-                { 
-                    id: 'xlsx-jpg', 
-                    title: 'XLSX в JPG', 
-                    accept: '.xlsx,.xls',
-                    icon: '🖌️',  // Кисть художника
-                    handler: (file) => handleConvert('xlsx/to/jpg', 'jpg', file)
-                },
-                { 
-                    id: 'xlsx-png', 
-                    title: 'XLSX в PNG', 
-                    accept: '.xlsx,.xls',
-                    icon: '🎭',  // Театральные маски
-                    handler: (file) => handleConvert('xlsx/to/png', 'png', file)
                 }
             ]
         },
@@ -449,13 +424,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     icon: '🖋️',  // Ручка
                     handler: (file) => handleConvert('gif/to/tiff', 'tiff', file)
                 },
-                { 
-                    id: 'gif-webp', 
-                    title: 'GIF в WEBP', 
-                    accept: '.gif',
-                    icon: '📹',  // Видеокамера
-                    handler: (file) => handleConvert('gif/to/webp', 'webp', file)
-                }
             ]
         },
         {
@@ -496,13 +464,6 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     icon: '📐',  // Линейка
                     handler: (file) => handleConvert('jpg/to/tiff', 'tiff', file)
                 },
-                { 
-                    id: 'jpg-webp', 
-                    title: 'JPG в WEBP', 
-                    accept: '.jpg,.jpeg',
-                    icon: '🖱️',  // Компьютерная мышь
-                    handler: (file) => handleConvert('jpg/to/webp', 'webp', file)
-                }
             ]
         },
         {
@@ -543,15 +504,27 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                     icon: '🖍️',  // Мелки
                     handler: (file) => handleConvert('png/to/svg', 'svg', file)
                 },
-                { 
-                    id: 'png-webp', 
-                    title: 'PNG в WEBP', 
-                    accept: '.png',
-                    icon: '🌉',  // Мост ночью
-                    handler: (file) => handleConvert('png/to/webp', 'webp', file)
-                }
             ]
         },
+        {
+            name: 'PPTX Конвертеры',
+            formats: [
+                    { 
+                    id: 'pptx-tiff', 
+                    title: 'PPTX в TIFF', 
+                    accept: '.pptx',
+                    icon: '',
+                    handler: (file) => handleConvert('pptx/to/tiff', 'tiff', file)
+                },
+                { 
+                    id: 'pptx-pdf', 
+                    title: 'PPTX в PDF', 
+                    accept: '.pptx',
+                    icon: '',
+                    handler: (file) => handleConvert('pptx/to/pdf', 'pdf', file)
+                }
+                ]
+        }
     ];
      const getFilteredGroups = () => {
         if (selectedConverter) {
@@ -576,7 +549,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
 
     const filteredGroups = getFilteredGroups();
 
-    return (
+     return (
         <div className="tools-container">
             <div className="header">
                 <h1>Конвертер документов</h1>
@@ -586,6 +559,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
             <div className="alert-container">
                 <Alert message={message} />
             </div>
+            
             <div className="converter-groups">
                 {filteredGroups.length > 0 ? (
                     filteredGroups.map((group) => (
@@ -596,14 +570,26 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                             </h2>
                             <div className="converter-grid">
                                 {group.formats.map((format) => (
-                                    <FileConverter
-                                        key={format.id}
-                                        format={format}
-                                        onConvert={setMessage}
-                                        onToggle={toggleContainer}
-                                        isActive={activeContainer === format.id}
-                                        isLoading={isLoading}
-                                    />
+                                    <div key={format.id}>
+                                        <FileConverter
+                                            format={format}
+                                            onConvert={setMessage}
+                                            onToggle={toggleContainer}
+                                            isActive={activeContainer === format.id}
+                                            isLoading={isLoading}
+                                        />
+                                        {format.showPageRangeInput && activeContainer === format.id && (
+                                            <div className="page-range-input">
+                                                <input
+                                                    type="text"
+                                                    placeholder="Пример: 1-5 или 1,3,5"
+                                                    value={pageRange}
+                                                    onChange={(e) => setPageRange(e.target.value)}
+                                                />
+                                                <small>Укажите страницы для удаления (например: 1-10 или 1,3,5)</small>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                         </div>
