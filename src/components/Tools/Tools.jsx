@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './Tools.css';
-import FileConverter from '../FileConverter/FileConverter';
-import InfoBox from '../InfoBox/InfoBox';
-import Alert from '../Alert/Alert';
+import FileConverter from './components/FileConverter/FileConverter';
+import InfoBox from './components/InfoBox/InfoBox';
+import Alert from './components/Alert/Alert';
 
 
 const Tools = ({ searchTerm, selectedConverter, darkMode }) => {

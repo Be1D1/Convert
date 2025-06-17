@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
-import Tools from '../Tools/Tools';
+import Tools from '../../Tools';
 import './App.css'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedConverter, setSelectedConverter] = useState('');
   const [darkMode, setDarkMode] = useState(() => {
-    // Проверяем localStorage при инициализации
     const savedTheme = localStorage.getItem('darkMode');
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
   useEffect(() => {
-    // Применяем класс темы к body при загрузке
     if (darkMode) {
       document.body.classList.add('dark-theme');
     } else {
