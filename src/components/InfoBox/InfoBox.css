@@ -30,3 +30,25 @@
     border-left: 4px solid #71afff;
     border-right: 4px solid #71afff;
 }
+.dark-theme .info-box {
+  background-color: #2d2d2d;
+  box-shadow: 0 10px 15px #1a1a1a;
+}
+
+.dark-theme .info-box h4 {
+  color: #ffffff;
+}
+
+.dark-theme .info-box li {
+  color: #e0e0e0;
+}
+
+.dark-theme .tips {
+  background-color: #1e3a5f;
+  border-left: 4px solid #3a71b8;
+  border-right: 4px solid #3a71b8;
+}
+
+.dark-theme .tips h4 {
+  color: #ffffff;
+}

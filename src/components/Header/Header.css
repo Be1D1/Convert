@@ -18,7 +18,6 @@ header{
 .format-menus {
   display: flex;
   gap: 10px;
-  margin-left: 35px;
 }
 .search-input{
   margin-left: auto;
@@ -91,8 +90,97 @@ header{
   }
 }
 .icon-site{
-  margin: 0 auto;
+  margin: 0 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: #3a5a8a solid 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.icon-site:hover{
+  border: #6f9ee4 solid 3px;
 }
 .site-icon{
   cursor: pointer;
+}
+.info-button {
+  margin-left: 45px;
+  width: 150px;
+  height: 25px;
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.info-button:hover {
+  background-color: #3a5a8a;
+}
+/* Добавьте в конец файла Header.css */
+.theme-toggle {
+  margin-left: 15px;
+  padding: 5px 10px;
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.theme-toggle:hover {
+  background-color: #3a5a8a;
+}
+
+header.dark {
+  background-color: #333;
+  border-color: #555;
+}
+
+.dark .format-button {
+  background-color: #444;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark .format-button:hover {
+  background-color: #555;
+}
+
+.dark .format-button.active {
+  background-color: #2a5885;
+}
+
+.dark .dropdown-options {
+  background-color: #444;
+  border-color: #666;
+}
+
+.dark .dropdown-option {
+  color: #fff;
+}
+
+.dark .dropdown-option:hover {
+  background-color: #555;
+}
+
+.dark .info-button {
+  background-color: #444;
+}
+
+.dark .info-button:hover {
+  background-color: #555;
+}
+
+.dark .theme-toggle {
+  background-color: #444;
+}
+
+.dark .theme-toggle:hover {
+  background-color: #555;
 }

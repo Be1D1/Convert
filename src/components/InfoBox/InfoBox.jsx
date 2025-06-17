@@ -2,7 +2,7 @@ import './InfoBox.css';
 
 const InfoBox = () => {
     return (
-        <div className="info-box">
+        <div className="info-box" id="info-box">
             <h4>Как это работает?</h4>
             <ol>
                 <li>Выберите тип конвертации</li>

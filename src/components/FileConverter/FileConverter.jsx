@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import './FileConverter.css';
 
-const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading }) => {
+const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading, darkMode }) => {
     const [files, setFiles] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
     const [pages, setPages] = useState('');
@@ -37,6 +37,17 @@ const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading }) => 
         }
     }, []);
 
+    const handlePagesChange = (e) => {
+        setPages(e.target.value);
+    };
+
+    const handleRemoveFile = (index) => (e) => {
+        e.stopPropagation();
+        const newFiles = [...files];
+        newFiles.splice(index, 1);
+        setFiles(newFiles);
+    };
+
     const handleConvert = () => {
         if (format.minFiles && files.length < format.minFiles) {
             onConvert(`Пожалуйста, выберите хотя бы ${format.minFiles} файла`);
@@ -51,7 +62,7 @@ const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading }) => 
     };
 
     return (
-        <div className={`converter-card ${isActive ? 'active' : ''}`}>
+        <div className={`converter-card ${isActive ? 'active' : ''} ${darkMode ? 'dark' : ''}`}>
             <div className="card-header" onClick={() => onToggle(format.id)}>
                 <span className="format-icon">{format.icon}</span>
                 <h3>{format.title}</h3>
@@ -84,6 +95,9 @@ const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading }) => 
                                                 <span className="file-size">
                                                     ({(file.size / 1024 / 1024).toFixed(2)} MB)
                                                 </span>
+                                                <button 
+                                                    className="remove-file-btn"
+                                                    onClick={handleRemoveFile(index)}>×</button>
                                             </div>
                                         ))}
                                     </div>
@@ -112,7 +126,7 @@ const FileConverter = ({ format, onConvert, onToggle, isActive, isLoading }) => 
                             <input
                                 type="text"
                                 value={pages}
-                                onChange={(e) => setPages(e.target.value)}
+                                onChange={handlePagesChange}
                                 disabled={isLoading}
                             />
                         </div>

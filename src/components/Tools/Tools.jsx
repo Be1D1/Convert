@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import './Tools.css';
-import FileConverter from './FileConverter';
-import InfoBox from './InfoBox';
-import Alert from './Alert';
+import FileConverter from '../FileConverter/FileConverter';
+import InfoBox from '../InfoBox/InfoBox';
+import Alert from '../Alert/Alert';
 
-const Tools = ({ searchTerm, selectedConverter }) => {
+
+const Tools = ({ searchTerm, selectedConverter, darkMode }) => {
     const [activeContainer, setActiveContainer] = useState(null);
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [pageRange, setPageRange] = useState('');
 
+    const onChangePage = (e) => {
+        setPageRange(e.target.value)
+    }
+
+    const apiSecret = import.meta.env.VITE_CONVERTAPI_SECRET;
     const handleConvert = async (endpoint, targetFormat, file, pages = '') => {
         if (!file) {
             setMessage('Пожалуйста, выберите файл для конвертации.');
@@ -27,13 +33,13 @@ const Tools = ({ searchTerm, selectedConverter }) => {
             }
 
             const response = await fetch(
-                `https://v2.convertapi.com/convert/${endpoint}?Secret=secret_KZTZ8nEF9oViP4GP`,
-                {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/octet-stream' },
-                    body: formData
-                }
-            );
+            `https://v2.convertapi.com/convert/${endpoint}?Secret=${apiSecret}`,
+            {
+            method: 'POST',
+            headers: { 'Accept': 'application/octet-stream' },
+            body: formData
+            }
+        );
 
             if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
             
@@ -79,7 +85,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
             formData.append('PageRange', pageRange);
 
             const response = await fetch(
-                `https://v2.convertapi.com/convert/pdf/to/delete-pages?Secret=secret_KZTZ8nEF9oViP4GP`,
+                `https://v2.convertapi.com/convert/pdf/to/delete-pages?Secret=${apiSecret}`,
                 {
                     method: 'POST',
                     headers: { 'Accept': 'application/octet-stream' },
@@ -142,7 +148,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
             });
 
             const response = await fetch(
-                `https://v2.convertapi.com/convert/pdf/to/merge?Secret=secret_KZTZ8nEF9oViP4GP`,
+                `https://v2.convertapi.com/convert/pdf/to/merge?Secret=${apiSecret}`,
                 {
                     method: 'POST',
                     headers: { 'Accept': 'application/octet-stream' },
@@ -579,7 +585,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
     const filteredGroups = getFilteredGroups();
 
      return (
-        <div className="tools-container">
+         <div className={`tools-container ${darkMode ? 'dark-theme' : ''}`}>
             <div className="header">
                 <h1>Конвертер документов</h1>
                 <p className="subtitle">Быстрое преобразование файлов между разными форматами</p>
@@ -606,6 +612,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                                             onToggle={toggleContainer}
                                             isActive={activeContainer === format.id}
                                             isLoading={isLoading}
+                                            darkMode={darkMode}
                                         />
                                         {format.showPageRangeInput && activeContainer === format.id && (
                                             <div className="page-range-input">
@@ -613,7 +620,7 @@ const Tools = ({ searchTerm, selectedConverter }) => {
                                                     type="text"
                                                     placeholder="Пример: 1-5 или 1,3,5"
                                                     value={pageRange}
-                                                    onChange={(e) => setPageRange(e.target.value)}
+                                                    onChange={onChangePage}
                                                 />
                                                 <small>Укажите страницы для удаления (например: 1-10 или 1,3,5)</small>
                                             </div>
