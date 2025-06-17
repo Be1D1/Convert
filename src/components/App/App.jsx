@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
-import Tools from '../../Tools';
+import Tools from '../Tools/Tools';
 import './App.css'
 
 function App() {
